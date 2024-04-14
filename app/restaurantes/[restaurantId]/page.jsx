@@ -3,6 +3,7 @@ import restaurants from '../../mock/restaurants'
 import ReviewsList from '@/app/ui/components/ReviewsList/ReviewsList';
 import HeroRestaurant from '@/app/ui/components/HeroRestaurant/HeroRestaurant';
 import CreateReview from '@/app/ui/components/CreateReview/CreateReview';
+import Response from '@/app/ui/components/Response/Response';
 
 export default function RestaurantDetails({ params }) {
 
@@ -11,9 +12,10 @@ export default function RestaurantDetails({ params }) {
     return (<>
         { !restaurant
             ? (
-                <div className='w-full h-full flex justify-center items-center'>
-                    <p className='text-tailor-blue text-2xl font-semibold'>No encuentro el restaurante que buscas</p>
-                </div>
+                <Response 
+                    text='No encuentro el restaurante que buscas' 
+                    href='/restaurantes/lista' 
+                    buttonText='Ver todos los restaurantes' />
             )
             : (<div className='px-10'>
                     <HeroRestaurant restaurant={restaurant} />
