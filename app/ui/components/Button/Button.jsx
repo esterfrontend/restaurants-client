@@ -1,13 +1,13 @@
 import Link from 'next/link'
 
-export default function Button ({onClick, href, type, children}) {
+export default function Button ({onClick, href, type, children, className}) {
     const styledButton = 'inline-block w-fit py-4 px-8 border rounded-3xl border-black text-2xl font-semibold'
     return (
         <>
             { href && 
                 <Link 
                     href={href}
-                    className={styledButton}
+                    className={`${styledButton} ${className}`}
                 >
                     {children}
                 </Link>
@@ -16,7 +16,7 @@ export default function Button ({onClick, href, type, children}) {
             { onClick &&
                 <button 
                     onClick={onClick}
-                    className={styledButton}
+                    className={`${styledButton} ${className}`}
                 >
                     {children}
                 </button>
@@ -26,8 +26,14 @@ export default function Button ({onClick, href, type, children}) {
                 <input 
                     type={type} 
                     value={children}
-                    className={styledButton}
+                    className={`${styledButton} ${className}`}
                 />
+            }
+
+            { !href && !onClick && !type &&
+                <button className={`${styledButton} ${className}`}>
+                    {children}
+                </button>
             }
         </>
     )

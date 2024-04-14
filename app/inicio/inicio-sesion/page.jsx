@@ -1,11 +1,12 @@
 import InitialTemplate from '../../ui/templates/Initial.template'
-import Button from "../../ui/components/Button/Button";
+import LogInForm from '@/app/ui/components/LogInForm/LogInForm';
 
 export default function InicioSesion() {
     return (
-        <InitialTemplate imageURL='/Login.jpg'>
-            <h1>Inicio sesión</h1>
-            <Button href="/">Home</Button>
+        <InitialTemplate imageURL='/Login.jpg' logoColor='#FFF'>
+            <div className="invert">
+                <LogInForm />
+            </div>
         </InitialTemplate>
     );
 }
