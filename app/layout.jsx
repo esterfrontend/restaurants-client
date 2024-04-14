@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${inter.className} flex flex-col h-dvh justify-between`}>
         {children}
-        <footer>
+        <footer className="px-10 py-4">
           <span>Prueba técnica @Tailor hub 2019 - 2024</span>
         </footer>
       </body>
