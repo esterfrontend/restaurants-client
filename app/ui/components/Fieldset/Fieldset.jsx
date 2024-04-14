@@ -8,7 +8,7 @@ export default function Fieldset ({type='text', name, id, labelText, placeholder
             { labelText &&
                 <label 
                     htmlFor={name}
-                    className="block text-2xl mb-2"
+                    className="block text-2xl font-semibold mb-2"
                 >
                     {labelText}
                 </label>
@@ -19,7 +19,7 @@ export default function Fieldset ({type='text', name, id, labelText, placeholder
                     name={name} 
                     id={id}
                     placeholder={placeholder}
-                    className={`${styledInput} ${styledPlaceholderInput} ${styledFocusInput}`}
+                    className={`h-[100px] ${styledInput} ${styledPlaceholderInput} ${styledFocusInput}`}
                 />
             ) : (
                 <input 
