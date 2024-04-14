@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react"
 import Button from "../Button/Button"
-import BackArrowIcon from "../BackArrowIcon/BackArrowIcon"
+import BackArrowIcon from "../Icons/BackArrowIcon/BackArrowIcon"
 import Fieldset from "../Fieldset/Fieldset"
 
 export default function SignInForm ({...props}) {
@@ -42,7 +42,8 @@ export default function SignInForm ({...props}) {
 
                     <div className='flex flex-col gap-6 mt-10'>
                         <Fieldset type="password" name="password" labelText="Crea una contraseña" placeholder="Añade una contraseña" />
-                        <Button type='submit'>Finalizar</Button>
+                        <Button href='/inicio/inicio-sesion'>Finalizar</Button>
+                        {/* <Button type='submit'>Finalizar</Button> */}
                     </div>
                 </>
             }
