@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         'tailor-blue': '#264BEB',
         'tailor-gray': '#F1F1F0',
+        'tailor-purple': '#8DA0F0'
       }
     },
   },
