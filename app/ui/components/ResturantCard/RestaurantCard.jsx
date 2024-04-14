@@ -1,11 +1,11 @@
 import Link from "next/link"
 import AverageReviews from "../AverageReviews/AverageReviews"
 
-export default function RestaurantCard ({restaurant, index, fnMouseEnter, fnMouseLeave}) {
+export default function RestaurantCard ({restaurant, id, fnMouseEnter, fnMouseLeave}) {
     return (
-        <Link href={`/restaurantes/${index}`} 
+        <Link href={`/restaurantes/${id}`} 
             className='flex gap-6' 
-            onMouseEnter={() => fnMouseEnter(index)}
+            onMouseEnter={() => fnMouseEnter(id)}
             onMouseLeave={fnMouseLeave}
         >
             { restaurant.image &&
