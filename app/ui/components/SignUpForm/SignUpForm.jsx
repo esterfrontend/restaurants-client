@@ -4,7 +4,7 @@ import Button from "../Button/Button"
 import BackArrowIcon from "../Icons/BackArrowIcon/BackArrowIcon"
 import Fieldset from "../Fieldset/Fieldset"
 
-export default function SignInForm ({...props}) {
+export default function SignUpForm ({handleChange, handleSubmit, ...props}) {
     const [current, setCurrent] = useState(1)
 
     const goToPreviousStep = (currentStep) => {
@@ -18,7 +18,7 @@ export default function SignInForm ({...props}) {
     }
 
     return (
-        <form {...props}>
+        <form onSubmit={handleSubmit} {...props}>
             { current === 1 && 
                 <>
                     <Button href='/'>
@@ -26,8 +26,8 @@ export default function SignInForm ({...props}) {
                     </Button>
                    
                     <div className='flex flex-col gap-6 mt-10'>
-                        <Fieldset type="text" name="email" id="email"  labelText="Email" placeholder="Añade tu email" />
-                        <Fieldset type="email" name="username" id="username" labelText="Nombre de usuario" placeholder="Añade tu nombre" />
+                        <Fieldset handleChange={handleChange} type="text" name="email" id="email"  labelText="Email" placeholder="Añade tu email" />
+                        <Fieldset handleChange={handleChange} type="email" name="username" id="username" labelText="Nombre de usuario" placeholder="Añade tu nombre" />
 
                         <Button onClick={() => goToNextStep(current)}>Siguiente</Button>
                     </div>
@@ -41,9 +41,8 @@ export default function SignInForm ({...props}) {
                     </Button>
 
                     <div className='flex flex-col gap-6 mt-10'>
-                        <Fieldset type="password" name="password" labelText="Crea una contraseña" placeholder="Añade una contraseña" />
-                        <Button href='/inicio/inicio-sesion'>Finalizar</Button>
-                        {/* <Button type='submit'>Finalizar</Button> */}
+                        <Fieldset handleChange={handleChange} type="password" name="password" labelText="Crea una contraseña" placeholder="Añade una contraseña" />
+                        <Button type='submit' className='cursor-pointer'>Finalizar</Button>
                     </div>
                 </>
             }
