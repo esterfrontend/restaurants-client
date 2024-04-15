@@ -1,9 +1,9 @@
 export async function fetchAllRestaurants() {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/restaurants/getAll`)
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/restaurants/getAll`)
 
-        if (response.ok) {
-            const jsonData = await response.json();
+        if (res.ok) {
+            const jsonData = await res.json();
             return jsonData;
         } else {
             throw new Error('Error al obtener los datos');
@@ -23,9 +23,7 @@ export async function fetchOneRestaurant(restaurant_id) {
     return res.json()
 }
 
-export async function fetchCreateRestaurant(data) {
-    console.log(data)
-    
+export async function fetchCreateRestaurant(data) {    
     const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/restaurants/create`, {
             method: 'POST',
