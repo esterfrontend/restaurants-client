@@ -1,8 +1,16 @@
-import { reviewsCalcs } from '../../../utils'
+import { reviewsCalcs } from '@/app/utils'
 import ReviewsStars from '../ReviewsStars/ReviewsStars'
 
 export default function AverageReviews ({reviews}) {
-    const { number, average } = reviewsCalcs(reviews)
+    const numberOfReviews = reviews.length
+
+    let sum = 0
+    for (let i = 0; i < numberOfReviews; i++) {
+        sum += reviews[i].rating
+    }
+
+    const average = sum / numberOfReviews
+
     const roundedAverage = Math.round(average)
 
     return (
@@ -10,7 +18,7 @@ export default function AverageReviews ({reviews}) {
             <div className='flex gap-3'>
                 <ReviewsStars number={roundedAverage} />
             </div>
-            <span>({number} comentarios)</span>
+            <span>({numberOfReviews} comentarios)</span>
         </div>
     )
 }
