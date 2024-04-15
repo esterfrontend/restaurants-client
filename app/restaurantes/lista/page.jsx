@@ -18,6 +18,7 @@ export default function AllRestaurants() {
         try {
             const response = await fetchAllRestaurants();
             setRestaurants(response);
+            setError(false)
         } catch (error) {
             setError(true)
         }
