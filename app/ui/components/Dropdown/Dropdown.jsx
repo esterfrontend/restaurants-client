@@ -1,9 +1,16 @@
 import { useState } from "react";
 import DownArrowIcon from "../Icons/DownArrowIcon/DownArrowIcon";
 import UpArrowIcon from "../Icons/UpArrowIcon/UpArrowIcon";
-
+import { useEffect } from "react";
+import { useAuthContext } from "@/app/context/AuthContext";
 
 export default function Dropdown ({children}) {
+    const { user, getProfile } = useAuthContext();
+
+    useEffect(() => {
+        getProfile();
+    }, []);
+
     const [isOpen, setIsOpen] = useState(false)
     const toggleDropdown = () => {
         isOpen 
@@ -15,7 +22,7 @@ export default function Dropdown ({children}) {
         <div className="relative">
             <div onClick={toggleDropdown} className="flex items-center gap-1.5 text-2xl cursor-pointer">
                 <span>
-                    Nombre usuario
+                    { user ? user.username : 'Nombre' }
                 </span>
                 { isOpen 
                     ? <UpArrowIcon />
