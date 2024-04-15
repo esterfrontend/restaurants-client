@@ -1,3 +1,6 @@
+'use server'
+import { redirect } from 'next/navigation'
+
 export const reviewsCalcs = (reviews) => {
     const numberOfReviews = reviews.length
 
@@ -9,4 +12,8 @@ export const reviewsCalcs = (reviews) => {
     const average = sum / numberOfReviews
 
     return {number: numberOfReviews, average}
+}
+
+export async function navigate(direction) {
+    redirect(direction)
 }

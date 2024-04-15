@@ -4,8 +4,10 @@ import InitialTemplate from '../../ui/templates/Initial.template'
 import SignUpForm from '@/app/ui/components/SignUpForm/SignUpForm';
 import { fetchSignup } from '@/app/lib/auth.service';
 import Toast from "@/app/ui/components/Toast/Toast";
+import { useAuthContext } from "@/app/context/AuthContext";
 
 export default function Registro() {
+    const { login } = useAuthContext() 
     const [formSended, setFormSended] = useState(false)
     const [error, setError] = useState(false)
     const initialData = {
@@ -30,6 +32,7 @@ export default function Registro() {
 
         try {
             await fetchSignup(data)
+            login(data)
             setFormSended(true)
             setError(false)
         } catch (err) {

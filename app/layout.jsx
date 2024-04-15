@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import AuthContextProvider from "./context/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,7 +13,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter.className} flex flex-col h-dvh justify-between`}>
-        {children}
+        <AuthContextProvider>
+          {children}
+        </AuthContextProvider>
         <footer className="px-10 py-4">
           <span>Prueba técnica @Tailor hub 2019 - 2024</span>
         </footer>
