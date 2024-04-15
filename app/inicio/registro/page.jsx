@@ -55,7 +55,7 @@ export default function Registro() {
     ]
 
     return (
-        <InitialTemplate imageURL='/Signup.jpg' logoColor='#FFF'>
+        <InitialTemplate page='signup' logoColor='#FFF'>
             <SignUpForm handleSubmit={handleSubmit} handleChange={handleChange} className="invert"/>
 
             { formSended && (

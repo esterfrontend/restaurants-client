@@ -3,7 +3,7 @@ import LogInForm from '@/app/ui/components/LogInForm/LogInForm';
 
 export default function InicioSesion() {
     return (
-        <InitialTemplate imageURL='/Login.jpg' logoColor='#FFF'>
+        <InitialTemplate page='login' logoColor='#FFF'>
             <div className="invert">
                 <LogInForm />
             </div>
