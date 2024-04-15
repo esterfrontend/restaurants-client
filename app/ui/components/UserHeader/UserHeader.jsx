@@ -3,8 +3,11 @@
 import Link from "next/link";
 import Button from "../Button/Button";
 import Dropdown from "../Dropdown/Dropdown";
+import { useAuthContext } from "@/app/context/AuthContext";
 
 export default function UserHeader () {
+    const { logout } = useAuthContext();
+
     return (
         <header className="flex justify-end p-10">
             <Dropdown>
@@ -13,7 +16,7 @@ export default function UserHeader () {
                         <Link href="/">Panel de control</Link>
                         <Link href="/restaurantes/crear-nuevo">Añadir restaurante</Link>
                     </div>
-                    <Button href="/" className="w-full invert">Cerrar sesión</Button>
+                    <Button onClick={logout} className="w-full invert">Cerrar sesión</Button>
                 </div>
             </Dropdown>
         </header>
