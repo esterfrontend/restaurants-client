@@ -46,7 +46,7 @@ export default function CreateRestaurant() {
         <TailorIconsTemplate>
 
             { !formSended ? (
-                <form action="" className="w-full flex gap-10">
+                <form className="w-full flex gap-10">
                     <UploadImage />
                     <div className="w-1/2 mb-20">
                         <CreateRestaurantForm handleChange={handleChange} handleSubmit={handleSubmit}/>
