@@ -36,7 +36,7 @@ export default function Dropdown ({children}) {
             <div onClick={toggleDropdown} className={`${!isOpen && 'hidden'} absolute w-max end-0 top-10 z-50`}>
                 {children}
             </div>
-            <div onClick={closeDropdown} className="fixed top-0 start-0 w-full h-full z-2"> </div>
+            <div onClick={closeDropdown} className={`${!isOpen && 'hidden'} fixed top-0 start-0 w-full h-full z-2`}></div>
         </div>
     )
 }
