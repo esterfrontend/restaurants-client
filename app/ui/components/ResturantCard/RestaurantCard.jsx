@@ -8,15 +8,13 @@ export default function RestaurantCard ({restaurant, id, fnMouseEnter, fnMouseLe
             onMouseEnter={() => fnMouseEnter(id)}
             onMouseLeave={fnMouseLeave}
         >
-            { restaurant.image &&
-                <div className='w-[200px] h-[200px] overflow-hidden rounded-3xl'>
-                    <img 
-                        src={restaurant.image} 
-                        alt={`Foto restaurante ${restaurant.name}`}
-                        className='w-full h-full object-cover'
-                        />
-                </div>
-            }
+            <div className='w-[200px] h-[200px] overflow-hidden rounded-3xl'>
+                <img 
+                    src={restaurant.image ? restaurant.image : 'https://res.cloudinary.com/dsywb80za/image/upload/v1712954201/Restaurants/Picture_shzy4m.jpg'} 
+                    alt={`Foto restaurante ${restaurant.name}`}
+                    className='w-full h-full object-cover'
+                    />
+            </div>
             <div className='flex flex-1 flex-col justify-between'>
                 <div>
                     <h2 className='text-4xl font-semibold mb-3'>{restaurant.name}</h2>
