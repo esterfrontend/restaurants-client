@@ -18,9 +18,13 @@ export default function Dropdown ({children}) {
             : setIsOpen(true)
     }
 
+    const closeDropdown = () => {
+        setIsOpen(false)
+    }
+
     return (
         <div className="relative">
-            <div onClick={toggleDropdown} className="flex items-center gap-1.5 text-2xl cursor-pointer">
+            <div onClick={toggleDropdown} className="relative flex items-center gap-1.5 text-2xl cursor-pointer z-10">
                 <span>
                     { user ? user.username : 'Nombre' }
                 </span>
@@ -29,9 +33,10 @@ export default function Dropdown ({children}) {
                     : <DownArrowIcon />
                 }
             </div>
-            <div className={`${!isOpen && 'hidden'} absolute w-max end-0 top-10 z-50`}>
+            <div onClick={toggleDropdown} className={`${!isOpen && 'hidden'} absolute w-max end-0 top-10 z-50`}>
                 {children}
             </div>
+            <div onClick={closeDropdown} className="fixed top-0 start-0 w-full h-full z-2"> </div>
         </div>
     )
 }
