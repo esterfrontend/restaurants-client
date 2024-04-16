@@ -1,5 +1,5 @@
 export default function Fieldset ({handleChange, type='text', name, id, labelText, placeholder=''}) {
-    const styledInput = "block w-full text-2xl border border-black py-2 px-6 rounded-3xl bg-transparent"
+    const styledInput = "block w-full border border-black py-2 px-6 rounded-3xl bg-transparent"
     const styledPlaceholderInput = "placeholder:text-black"
     const styledFocusInput = "focus-visible:outline-0"
     
@@ -9,7 +9,7 @@ export default function Fieldset ({handleChange, type='text', name, id, labelTex
                 <label 
                     onChange={handleChange}
                     htmlFor={name}
-                    className="block text-2xl font-semibold mb-2"
+                    className="block font-semibold mb-2"
                 >
                     {labelText}
                 </label>

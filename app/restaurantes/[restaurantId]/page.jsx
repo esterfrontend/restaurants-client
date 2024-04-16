@@ -11,13 +11,20 @@ export default async function RestaurantDetails({ params }) {
 
     return (<>
         { restaurant ? (
-            <div className='px-10'>
+            <div className='px-5 lg:px-10'>
                 <HeroRestaurant restaurant={restaurant} />
 
-                <div className='w-5/6 flex items-start gap-10 mt-10 mx-auto'>
-                    <div className='flex-1'>
-                        <p className='text-2xl'>Lorem ipsum dolor sit amet consectetur. At vel elementum amet est nulla cras turpis. Fringilla ornare massa eu a sollicitudin vestibulum auctor risus. Elementum quam sit neque quis. A vestibulum consectetur tincidunt vitae.Lorem ipsum dolor sit amet consectetur. At vel elementum amet est nulla cras turpis. Fringilla ornare massa eu a sollicitudin vestibulum auctor risus. Elementum quam sit neque quis. A vestibulum consectetur tincidunt vitae.Lorem ipsum dolor sit amet consectetur. At vel elementum amet est nulla cras turpis. Fringilla ornare massa eu a sollicitudin vestibulum auctor risus. Elementum quam sit neque quis. A vestibulum consectetur tincidunt vitae.</p>
-                        
+                <div className='w-5/6 mt-10 mx-auto'>
+                    <div className='flex flex-col lg:flex-row lg:items-start gap-10'>
+                        <div className='lg:w-2/3'>
+                            { restaurant.description 
+                                ? <p>{restaurant.description}</p>
+                                : <p>Lorem ipsum dolor sit amet consectetur. At vel elementum amet est nulla cras turpis. Fringilla ornare massa eu a sollicitudin vestibulum auctor risus. Elementum quam sit neque quis. A vestibulum consectetur tincidunt vitae.Lorem ipsum dolor sit amet consectetur. At vel elementum amet est nulla cras turpis. Fringilla ornare massa eu a sollicitudin vestibulum auctor risus. Elementum quam sit neque quis. A vestibulum consectetur tincidunt vitae.Lorem ipsum dolor sit amet consectetur. At vel elementum amet est nulla cras turpis. Fringilla ornare massa eu a sollicitudin vestibulum auctor risus. Elementum quam sit neque quis. A vestibulum consectetur tincidunt vitae.</p>
+                            }
+                        </div>
+                        <CreateReview/>
+                    </div>
+                    <div className='lg:w-2/3'>
                         { restaurant.reviews 
                             ? <ReviewsList reviews={restaurant.reviews}/>
                             : <p>Todavía no hay ningún comentario</p>
@@ -28,7 +35,6 @@ export default async function RestaurantDetails({ params }) {
                             <Button>Eliminar</Button>
                         </div>
                     </div>
-                    <CreateReview/>
                 </div>
             </div>
         ) : (

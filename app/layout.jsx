@@ -11,13 +11,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="text-[18px] lg:text-[20px] 2xl:text-[24px]">
       <body className={`${inter.className} flex flex-col h-dvh justify-between`}>
         <AuthContextProvider>
           {children}
         </AuthContextProvider>
-        <footer className="px-10 py-4">
-          <span>Prueba técnica @Tailor hub 2019 - 2024</span>
+        <footer className="px-5 lg:px-10 py-4">
+          <span className="text-xs">Prueba técnica @Tailor hub 2019 - 2024</span>
         </footer>
       </body>
     </html>

@@ -24,7 +24,7 @@ export default function Dropdown ({children}) {
 
     return (
         <div className="relative">
-            <div onClick={toggleDropdown} className="relative flex items-center gap-1.5 text-2xl cursor-pointer z-10">
+            <div onClick={toggleDropdown} className="relative flex items-center gap-1.5 cursor-pointer z-10">
                 <span>
                     { user ? user.username : 'Nombre' }
                 </span>

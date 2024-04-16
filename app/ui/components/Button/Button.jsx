@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 export default function Button ({onClick, href, type, children, className}) {
-    const styledButton = 'inline-block w-fit py-4 px-8 border rounded-3xl border-black text-2xl font-semibold'
+    const styledButton = 'inline-block w-fit py-4 px-8 border rounded-3xl border-black font-semibold'
     return (
         <>
             { href && 

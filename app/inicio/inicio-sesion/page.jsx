@@ -47,7 +47,7 @@ export default function InicioSesion() {
             </div>
             { formSended &&  error && (
                 <Toast error={error} formSended={formSended}>
-                    <p className="text-xl text-white">
+                    <p className="text-sm text-white">
                         Error al iniciar sesión. Comprueba que has escrito bien tus datos. 
                     </p>
                 </Toast>

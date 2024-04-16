@@ -50,13 +50,13 @@ export default function AllRestaurants() {
                     text='Lo sentimos, ha habido un error al cargar los restaurantes.' 
                 />
             : (
-                <div className="flex h-[calc(100vh-180px)] px-10 gap-10">
-                    <div className='w-1/2 h-auto'>
-                        <div className='h-full bg-tailor-gray overflow-hidden rounded-3xl'>
+                <div className="flex flex-col items-center lg:items-stretch lg:flex-row lg:h-[calc(100vh-200px)] px-5 lg:px-10 gap-5 lg:gap-10">
+                    <div className='w-full lg:w-1/2 h-auto'>
+                        <div className='h-[250px] lg:h-full bg-tailor-gray overflow-hidden rounded-3xl'>
                             <GMap restaurants={restaurants} selectedRestaurant={selectedRestaurant} center={centerCoords} />
                         </div>
                     </div>
-                    <div className='restaurants__list w-1/2 overflow-auto mb-[-62px]'>
+                    <div className={`restaurants__list lg:w-1/2 overflow-auto lg:mb-[-70px] ${selectedRestaurant ? 'hovered' : ''}`}>
                         { restaurants ? (
                             <RestaurantsList restaurants={restaurants} fnMouseEnter={selectRestaurant} fnMouseLeave={unselectRestaurant} />
                         ) : (

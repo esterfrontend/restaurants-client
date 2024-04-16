@@ -64,12 +64,12 @@ export default function Registro() {
             { formSended && (
                 <Toast error={error} formSended={formSended}>
                     { !error ? (
-                        <p className="text-xl text-white">
+                        <p className="text-sm text-white">
                             Enhorabuena, tu usuario ha sido creado.
                         </p>
                     ) : (
                         <>
-                            <p className="text-xl text-white">
+                            <p className="text-sm text-white">
                                 No ha podido crearse la cuenta.
                             </p>
 

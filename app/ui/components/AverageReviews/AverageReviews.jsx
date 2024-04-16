@@ -14,11 +14,16 @@ export default function AverageReviews ({reviews}) {
     const roundedAverage = Math.round(average)
 
     return (
-        <div className='flex items-center gap-3'>
+        <div className='flex flex-col items-start
+                sm:flex-row sm:items-center
+                lg:flex-col lg:items-start
+                xl:flex-row xl:items-center
+                gap-2'
+            >
             <div className='flex gap-3'>
                 <ReviewsStars number={roundedAverage} />
             </div>
-            <span>({numberOfReviews} comentarios)</span>
+            <span className='text-xs'>({numberOfReviews} comentarios)</span>
         </div>
     )
 }
