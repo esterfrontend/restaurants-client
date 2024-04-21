@@ -8,18 +8,18 @@ import { useState, useEffect } from 'react';
 import restaurantService from '@/app/lib/restaurants.service';
 import { useAuthContext } from '@/app/context/AuthContext';
 import TailorIconsTemplate from '@/app/ui/templates/TailorIcons.template';
+import CreateRestaurantForm from '@/app/ui/components/CreateRestaurantForm/CreateRestaurantForm';
 
 export default function RestaurantDetails({ params }) {
     const { user } = useAuthContext()
-    const [restaurant, setRestaurant] = useState(null);
+    const [restaurant, setRestaurant] = useState({});
     
     const [formSended, setFormSended] = useState(false)
     const [error, setError] = useState(null)
     const [notFound, setNotFound] = useState(false)
-    
-    useEffect(() => {
-        getRestaurant();
-    }, [formSended]);
+
+    const [showModal, setShowModal] = useState(false)
+    const [editRestaurantData, setEditRestaurantData] = useState(restaurant)
 
     const getRestaurant = async () => {
         try {
@@ -31,16 +31,38 @@ export default function RestaurantDetails({ params }) {
         }
     };
 
+    useEffect(() => {
+        getRestaurant();
+    }, [formSended, showModal]);
+
     const deleteRestaurant = async () => {
         try {
             const res = await restaurantService.fetchDeleteRestaurant(params.restaurantId);
-            console.log(res)
             setFormSended(true)
             setError(false)
             setNotFound(false)
         } catch (error) {
             setFormSended(true)
             setError(true)
+        }
+    }
+
+    const handleChange = (e) => {
+        const {name, value} = e.target
+        setEditRestaurantData({ ...editRestaurantData, [name]: value })
+    }
+    
+    const handleSubmitEdit = async (e) => {
+        e.preventDefault()
+
+        try {
+            console.log(editRestaurantData)
+            const updatedRestaurant = await restaurantService.fetchEditRestaurant(params.restaurantId, editRestaurantData)
+            console.log(updatedRestaurant)
+            setShowModal(false)
+            setRestaurant(updatedRestaurant)
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -67,7 +89,7 @@ export default function RestaurantDetails({ params }) {
                         
                         { user &&
                             <div className='flex justify-end gap-4'>
-                                <Button>Editar</Button>
+                                <Button onClick={() => setShowModal(true)}>Editar</Button>
                                 <Button onClick={deleteRestaurant}>Eliminar</Button>
                             </div>
                         }
@@ -75,6 +97,7 @@ export default function RestaurantDetails({ params }) {
                 </div>
             </div>
         }
+
         { formSended &&
             <TailorIconsTemplate>
                 { !error ? (
@@ -91,7 +114,7 @@ export default function RestaurantDetails({ params }) {
         
         }
 
-        { notFound && !formSended &&
+        { notFound && 
             <TailorIconsTemplate>
                 <Response 
                 text='Lo sentimos, no encontramos el restaurante que buscas' 
@@ -99,5 +122,19 @@ export default function RestaurantDetails({ params }) {
                 buttonText='Ver todos los restaurantes' />
             </TailorIconsTemplate>
         }
+        
+        { showModal && 
+            <div className='fixed top-0 start-0 bottom-4 w-full h-full flex items-center justify-center p-4 z-50'>
+                <div className='relative w-3/5 h-full bg-white mx-auto px-8 rounded-3xl z-50'>
+                    <span onClick={() => setShowModal(false)} className='absolute top-6 end-6 cursor-pointer'>X</span>
+                    <div className='w-full h-full py-8 px-4 overflow-auto'>
+                        <h2 className='text-2xl font-semibold text-center mb-6'>Edita el restaurante</h2>
+                        <CreateRestaurantForm handleChange={handleChange} handleSubmit={handleSubmitEdit}/>
+                    </div>
+                </div>
+                <span onClick={() => setShowModal(false)} className='absolute w-full h-full bg-black bg-opacity-25 cursor-pointer'></span>
+            </div>
+        }
+
     </>)
 }

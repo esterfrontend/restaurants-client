@@ -31,6 +31,12 @@ class RestaurantService extends AxiosConfig {
 
     async fetchCreateRestaurant(data) {
         const res = await this.axios.post("/create/", data)
+        
+        return res.data
+    }
+
+    async fetchEditRestaurant(restaurant_id, data) {
+        const res = await this.axios.put(`/edit/${restaurant_id}`, data)
        
         return res.data
     }
