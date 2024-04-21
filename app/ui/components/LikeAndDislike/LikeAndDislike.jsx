@@ -29,7 +29,6 @@ export default function LikeAndDislike({className, id, index, favouriteRestauran
         className={`cursor-pointer w-[34px] h-[34px] ${className} z-50`}
         onClick={ isFavourite ? () => removeFavouriteRestaurant(id) : () => addFavouriteRestaurant(id) } 
         >
-            { isFavourite && console.log(index) }
             <LikeIcon like={ isFavourite ? true : false } />
         </div>
     )

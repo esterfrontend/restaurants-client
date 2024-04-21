@@ -34,6 +34,12 @@ class RestaurantService extends AxiosConfig {
        
         return res.data
     }
+
+    async fetchDeleteRestaurant(restaurant_id) {
+        const res = await this.axios.delete(`/delete/${restaurant_id}`)
+       
+        return res.data
+    }
 }
 
 export default new RestaurantService()
