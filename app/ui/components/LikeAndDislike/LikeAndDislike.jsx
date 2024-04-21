@@ -11,7 +11,6 @@ export default function LikeAndDislike({className, id, index, favouriteRestauran
 
     const checkIfIsFavourite = async () => {
         if(updateUser && favouriteRestaurants && favouriteRestaurants.includes(id)) {
-            console.log(favouriteRestaurants)
             setIsFavourite(true)
         } else {
             setIsFavourite(false)

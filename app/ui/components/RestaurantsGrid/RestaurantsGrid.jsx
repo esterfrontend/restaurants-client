@@ -42,7 +42,6 @@ export default function RestaurantsGrid({restaurants}) {
 
 
     const addFavouriteRestaurant = async (id) => {
-        console.log('añado', id)
         try {
             if(user) {
                 await userService.fetchLikeRestaurant(id);
@@ -59,13 +58,11 @@ export default function RestaurantsGrid({restaurants}) {
     }
 
     const removeFavouriteRestaurant = async(id) => {
-        console.log('elimino', id)
         try {
             if(user) {
                 await userService.fetchDislikeRestaurant(id);
                 getProfile()
                 const updatedFavouriteRestaurants = favouriteRestaurants.filter(restaurant => restaurant !== id)
-                console.log(updatedFavouriteRestaurants)
                 setFavouriteRestaurants(updatedFavouriteRestaurants)
             } else {
                 navigate('/inicio/inicio-sesion')
