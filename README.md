@@ -32,6 +32,7 @@ npm start
 |  /                             |  Home                     |     ❌      |
 |  /inicio/inicio-sesion         |  Login                    |     ❌      |
 |  /inicio/registro              |  Signup                   |     ❌      |
-|  /restaurantes/lista           |  Listado de restaurantes  |     ✅      |
-|  /restaurantes/:restaurantId   |  Restaurant detail        |     ✅      |
+|  /restaurantes/lista           |  Restaurants list         |     ❌      |
+|  /restaurantes/:restaurantId   |  Restaurant details       |     ❌      |
 |  /restaurantes/crear-nuevo     |  Create restaurant        |     ✅      |
+|  /mi-perfil                    |  My profile               |     ✅      |
