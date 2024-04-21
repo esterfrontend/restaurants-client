@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server"
-import { useContext } from "react"
-import Loading from "./app/ui/components/Loading/Loading"
 
 export function middleware(request) {
     const authTokens = request.cookies.get('token')?.value

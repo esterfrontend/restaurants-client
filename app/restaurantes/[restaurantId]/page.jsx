@@ -10,8 +10,10 @@ import { useAuthContext } from '@/app/context/AuthContext';
 import TailorIconsTemplate from '@/app/ui/templates/TailorIcons.template';
 import CreateRestaurantForm from '@/app/ui/components/CreateRestaurantForm/CreateRestaurantForm';
 import Modal from '@/app/ui/components/Modal/Modal';
+import Spinner from '@/app/ui/components/Spinner/Spinner';
 
 export default function RestaurantDetails({ params }) {
+    const [isLoading, setIsLoading] = useState(true)
     const { user } = useAuthContext()
     const [restaurant, setRestaurant] = useState({});
     
@@ -34,6 +36,9 @@ export default function RestaurantDetails({ params }) {
 
     useEffect(() => {
         getRestaurant();
+        if (restaurant) {
+            setIsLoading(false)
+        }
     }, [formSended, showModal]);
 
     const deleteRestaurant = async () => {
@@ -67,68 +72,73 @@ export default function RestaurantDetails({ params }) {
     }
 
     return (<>
-        { restaurant && !formSended &&
-            <div className='px-5 lg:px-10'>
-                <HeroRestaurant restaurant={restaurant} />
+        { isLoading ? (
+            <Spinner />
+        ) : (
+            <>
+            { restaurant && !formSended &&
+                <div className='px-5 lg:px-10'>
+                    <HeroRestaurant restaurant={restaurant} />
 
-                <div className='w-5/6 mt-10 mx-auto'>
-                    <div className='flex flex-col lg:flex-row lg:items-start gap-10'>
+                    <div className='w-5/6 mt-10 mx-auto'>
+                        <div className='flex flex-col lg:flex-row lg:items-start gap-10'>
+                            <div className='lg:w-2/3'>
+                                { restaurant.description 
+                                    ? <p>{restaurant.description}</p>
+                                    : <p>Lorem ipsum dolor sit amet consectetur. At vel elementum amet est nulla cras turpis. Fringilla ornare massa eu a sollicitudin vestibulum auctor risus. Elementum quam sit neque quis. A vestibulum consectetur tincidunt vitae.Lorem ipsum dolor sit amet consectetur. At vel elementum amet est nulla cras turpis. Fringilla ornare massa eu a sollicitudin vestibulum auctor risus. Elementum quam sit neque quis. A vestibulum consectetur tincidunt vitae.Lorem ipsum dolor sit amet consectetur. At vel elementum amet est nulla cras turpis. Fringilla ornare massa eu a sollicitudin vestibulum auctor risus. Elementum quam sit neque quis. A vestibulum consectetur tincidunt vitae.</p>
+                                }
+                            </div>
+                            <CreateReview/>
+                        </div>
                         <div className='lg:w-2/3'>
-                            { restaurant.description 
-                                ? <p>{restaurant.description}</p>
-                                : <p>Lorem ipsum dolor sit amet consectetur. At vel elementum amet est nulla cras turpis. Fringilla ornare massa eu a sollicitudin vestibulum auctor risus. Elementum quam sit neque quis. A vestibulum consectetur tincidunt vitae.Lorem ipsum dolor sit amet consectetur. At vel elementum amet est nulla cras turpis. Fringilla ornare massa eu a sollicitudin vestibulum auctor risus. Elementum quam sit neque quis. A vestibulum consectetur tincidunt vitae.Lorem ipsum dolor sit amet consectetur. At vel elementum amet est nulla cras turpis. Fringilla ornare massa eu a sollicitudin vestibulum auctor risus. Elementum quam sit neque quis. A vestibulum consectetur tincidunt vitae.</p>
+                            { restaurant.reviews 
+                                ? <ReviewsList reviews={restaurant.reviews}/>
+                                : <p>Todavía no hay ningún comentario</p>
+                            }
+                            
+                            { user &&
+                                <div className='flex justify-end gap-4'>
+                                    <Button onClick={() => setShowModal(true)}>Editar</Button>
+                                    <Button onClick={deleteRestaurant}>Eliminar</Button>
+                                </div>
                             }
                         </div>
-                        <CreateReview/>
-                    </div>
-                    <div className='lg:w-2/3'>
-                        { restaurant.reviews 
-                            ? <ReviewsList reviews={restaurant.reviews}/>
-                            : <p>Todavía no hay ningún comentario</p>
-                        }
-                        
-                        { user &&
-                            <div className='flex justify-end gap-4'>
-                                <Button onClick={() => setShowModal(true)}>Editar</Button>
-                                <Button onClick={deleteRestaurant}>Eliminar</Button>
-                            </div>
-                        }
                     </div>
                 </div>
-            </div>
-        }
+            }
 
-        { formSended &&
-            <TailorIconsTemplate>
-                { !error ? (
+            { formSended &&
+                <TailorIconsTemplate>
+                    { !error ? (
+                        <Response 
+                        text='El restaurante ha sido eliminado' 
+                        href={`/restaurantes/lista`} 
+                        buttonText='Ver restaurantes' />
+                    ) : (
+                        <Response 
+                            text='Ups, algo salió mal' 
+                        />
+                    )}
+                </TailorIconsTemplate>
+            
+            }
+
+            { notFound && 
+                <TailorIconsTemplate>
                     <Response 
-                    text='El restaurante ha sido eliminado' 
-                    href={`/restaurantes/lista`} 
-                    buttonText='Ver restaurantes' />
-                ) : (
-                    <Response 
-                        text='Ups, algo salió mal' 
-                     />
-                )}
-            </TailorIconsTemplate>
-        
-        }
+                    text='Lo sentimos, no encontramos el restaurante que buscas' 
+                    href='/restaurantes/lista' 
+                    buttonText='Ver todos los restaurantes' />
+                </TailorIconsTemplate>
+            }
+            
+            { showModal && 
+                <Modal onClose={() => setShowModal(false)}>
+                    <h2 className='text-2xl font-semibold text-center mb-6'>Edita el restaurante</h2>
+                    <CreateRestaurantForm handleChange={handleChange} handleSubmit={handleSubmitEdit}/>
+                </Modal>
+            }
 
-        { notFound && 
-            <TailorIconsTemplate>
-                <Response 
-                text='Lo sentimos, no encontramos el restaurante que buscas' 
-                href='/restaurantes/lista' 
-                buttonText='Ver todos los restaurantes' />
-            </TailorIconsTemplate>
-        }
-        
-        { showModal && 
-            <Modal onClose={() => setShowModal(false)}>
-                <h2 className='text-2xl font-semibold text-center mb-6'>Edita el restaurante</h2>
-                <CreateRestaurantForm handleChange={handleChange} handleSubmit={handleSubmitEdit}/>
-            </Modal>
-        }
-
-    </>)
+        </>)
+    } </>)
 }
