@@ -12,8 +12,8 @@ export default function GMap ({restaurants, selectedRestaurant, center}) {
     const [restaurantSelected, setRestaurantSelected] = useState(null);
 
     useEffect(() => {
-        if(restaurants) {
-            setInitialPosition(restaurants[1].latlng)
+        if(restaurants && restaurants.length !== 0 ) {
+            setInitialPosition(restaurants[0].latlng)
             
             if(center) {
                 setCurrentPosition(center)

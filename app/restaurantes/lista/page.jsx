@@ -1,22 +1,20 @@
 'use client'
-import GMap from '@/app/ui/components/GMap/GMap';
-import RestaurantsList from '@/app/ui/components/ResturantsList/RestaurantsList';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { fetchAllRestaurants } from '@/app/lib/restaurants.service';
+import RestaurantsGrid from '@/app/ui/components/RestaurantsGrid/RestaurantsGrid';
+import restaurantService from '@/app/lib/restaurants.service';
+import { useState, useEffect } from 'react';
 import Response from '@/app/ui/components/Response/Response';
 
 export default function AllRestaurants() {
     const [restaurants, setRestaurants] = useState(null);
     const [error, setError] = useState(null)
-
+    
     useEffect(() => {
         getRestaurants();
     }, []);
 
     const getRestaurants = async () => {
         try {
-            const response = await fetchAllRestaurants();
+            const response = await restaurantService.fetchAllRestaurants();
             setRestaurants(response);
             setError(false)
         } catch (error) {
@@ -24,47 +22,19 @@ export default function AllRestaurants() {
         }
     };
 
-    const [centerCoords, setCenterCoords] = useState(null)
-    const [selectedRestaurant, setSelectedRestaurant] = useState(null)
-
-    const selectRestaurant = (restaurantId) => {
-        const restaurant = restaurants.find((restaurant) => {
-            return restaurant._id === restaurantId
-        })
-
-        const thisCoords = restaurant.latlng
-        if (thisCoords) {
-            setCenterCoords(thisCoords)
-            setSelectedRestaurant(restaurantId)
-        }
-    }
-
-    const unselectRestaurant = () => {
-        setSelectedRestaurant(null)
-    }
-
     return (
         <>
-            { error ? 
+        { error 
+            ? (
                 <Response 
                     text='Lo sentimos, ha habido un error al cargar los restaurantes.' 
                 />
-            : (
-                <div className="flex flex-col items-center lg:items-stretch lg:flex-row lg:h-[calc(100vh-200px)] px-5 lg:px-10 gap-5 lg:gap-10">
-                    <div className='w-full lg:w-1/2 h-auto'>
-                        <div className='h-[250px] lg:h-full bg-tailor-gray overflow-hidden rounded-3xl'>
-                            <GMap restaurants={restaurants} selectedRestaurant={selectedRestaurant} center={centerCoords} />
-                        </div>
-                    </div>
-                    <div className={`restaurants__list lg:w-1/2 overflow-auto lg:mb-[-70px] ${selectedRestaurant ? 'hovered' : ''}`}>
-                        { restaurants ? (
-                            <RestaurantsList restaurants={restaurants} fnMouseEnter={selectRestaurant} fnMouseLeave={unselectRestaurant} />
-                        ) : (
-                            <p>Cargando los restaurantes...</p>
-                        )}
-                    </div>
-                </div>
-            )}
+            ) : ( <>
+                { restaurants &&
+                    <RestaurantsGrid restaurants={restaurants}/>
+                }
+            </>)
+        }
         </>
     );
 }

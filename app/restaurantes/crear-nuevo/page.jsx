@@ -4,7 +4,7 @@ import Response from "@/app/ui/components/Response/Response";
 import UploadImage from "@/app/ui/components/UploadImage/UploadImage";
 import TailorIconsTemplate from "@/app/ui/templates/TailorIcons.template";
 import { useState } from "react";
-import { fetchCreateRestaurant } from '@/app/lib/restaurants.service';
+import restaurantService from '@/app/lib/restaurants.service';
 
 export default function CreateRestaurant() {
     const [error, setError] = useState(false)
@@ -32,7 +32,7 @@ export default function CreateRestaurant() {
         const data = { image, name, address, description }
 
         try {
-            const reponse = await fetchCreateRestaurant(data)
+            const reponse = await restaurantService.fetchCreateRestaurant(data)
             setNewRestaurantId(reponse.restaurant._id)
             setFormSended(true)
             setError(false)

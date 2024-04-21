@@ -1,13 +1,29 @@
-
+'use client'
 import Button from '@/app/ui/components/Button/Button';
 import ReviewsList from '@/app/ui/components/ReviewsList/ReviewsList';
 import HeroRestaurant from '@/app/ui/components/HeroRestaurant/HeroRestaurant';
 import CreateReview from '@/app/ui/components/CreateReview/CreateReview';
 import Response from '@/app/ui/components/Response/Response';
-import { fetchOneRestaurant } from '@/app/lib/restaurants.service';
+import { useState, useEffect } from 'react';
+import restaurantService from '@/app/lib/restaurants.service';
 
-export default async function RestaurantDetails({ params }) {
-    const restaurant = await fetchOneRestaurant(params.restaurantId)
+export default function RestaurantDetails({ params }) {
+    const [restaurant, setRestaurant] = useState(null);
+    const [error, setError] = useState(null)
+    
+    useEffect(() => {
+        getRestaurant();
+    }, []);
+
+    const getRestaurant = async () => {
+        try {
+            const response = await restaurantService.fetchOneRestaurant(params.restaurantId);
+            setRestaurant(response);
+            setError(false)
+        } catch (error) {
+            setError(true)
+        }
+    };
 
     return (<>
         { restaurant ? (

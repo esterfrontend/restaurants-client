@@ -1,41 +1,39 @@
-export async function fetchAllRestaurants() {
-    try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/restaurants/getAll`)
+import AxiosConfig from ".";
 
-        if (res.ok) {
-            const jsonData = await res.json();
-            return jsonData;
-        } else {
-            throw new Error('Error al obtener los datos');
+class RestaurantService extends AxiosConfig {
+    constructor() {
+        super('restaurants')
+    }
+
+    async fetchAllRestaurants() {
+        try {
+            const res = await this.axios.get("/getAll")
+            
+            if (res.status === 200) {
+                return res.data;
+            } else {
+                throw new Error('Error al obtener los datos');
+            }
+        } catch (error) {
+            throw error;
         }
-    } catch (error) {
-        throw error;
+    }
+
+    async fetchOneRestaurant(restaurant_id) {
+        const res = await this.axios.get(`/getOne/${restaurant_id}`)
+
+        if (res.status !== 200) {
+          throw new Error('Failed to fetch data')
+        }
+       
+        return res.data
+    }
+
+    async fetchCreateRestaurant(data) {
+        const res = await this.axios.post("/create/", data)
+       
+        return res.data
     }
 }
 
-export async function fetchOneRestaurant(restaurant_id) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/restaurants/getOne/${restaurant_id}`)
-   
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
-    }
-   
-    return res.json()
-}
-
-export async function fetchCreateRestaurant(data) {    
-    const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/restaurants/create`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-   
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
-    }
-   
-    return res.json()
-}
+export default new RestaurantService()

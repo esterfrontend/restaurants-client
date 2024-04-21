@@ -1,49 +1,31 @@
-export async function fetchSignup(data) {    
-    const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-   
-    if (!res.ok) {
-        throw new Error('Failed to fetch data')
-    }
-   
-    return res.json()
-}
+import AxiosConfig from ".";
 
-export async function fetchLogin(data) {    
-    const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-   
-    if (!res.ok) {
-        throw new Error('Failed to fetch data')
+class AuthService extends AxiosConfig {
+    constructor() {
+        super('auth')
     }
-   
-    return res.json()
-}
 
-export async function fetchProfile(token) {    
-    const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/getprofile`, {
-            method: 'POST',
+    async fetchSignup(data) {
+        const res = await this.axios.post("/signup", data)
+        return res.data
+    }
+
+    async fetchLogin(data) {
+        const res = await this.axios.post("/login", data)
+        return res.data
+    }
+
+    async fetchProfile(token) {
+        const res = await this.axios.post("/getprofile",
+        {},
+        {
             headers: {
                 Authorization: `Bearer ${token}`,
-            }
-        })
-   
-    if (!res.ok) {
-        throw new Error('Failed to fetch data')
+            },
+        }
+        )
+        return res.data
     }
-   
-    return res.json()
 }
+
+export default new AuthService()

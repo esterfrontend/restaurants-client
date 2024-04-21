@@ -17,3 +17,38 @@ export const reviewsCalcs = (reviews) => {
 export async function navigate(direction) {
     redirect(direction)
 }
+
+const clickLikeIcon = (element) => {
+    element.classList.add('clicked')
+    setTimeout(function() {
+        element.classList.remove('clicked');
+    }, 700);
+}
+
+export const addFavouriteRestaurant = async (e) => {
+    try {
+        if(user) {
+            await userService.fetchLikeRestaurant(id);
+            setFavourite(true)
+            clickLikeIcon(e.target)
+        } else {
+            navigate('/inicio/inicio-sesion')
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const removeFavouriteRestaurant = async(e) => {
+    try {
+        if(user) {
+            await userService.fetchDislikeRestaurant(id);
+            setFavourite(false)
+            clickLikeIcon(e.target)
+        } else {
+            navigate('/inicio/inicio-sesion')
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
