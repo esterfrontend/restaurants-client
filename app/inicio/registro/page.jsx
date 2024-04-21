@@ -2,7 +2,7 @@
 import { useState } from "react"
 import InitialTemplate from '../../ui/templates/Initial.template'
 import SignUpForm from '@/app/ui/components/SignUpForm/SignUpForm';
-import { fetchSignup } from '@/app/lib/auth.service';
+import authService from '@/app/lib/auth.service';
 import Toast from "@/app/ui/components/Toast/Toast";
 import { useAuthContext } from "@/app/context/AuthContext";
 
@@ -31,7 +31,7 @@ export default function Registro() {
         const data = { email, username, password }
 
         try {
-            await fetchSignup(data)
+            await authService.fetchSignup(data)
             login(data)
             setFormSended(true)
             setError(false)
