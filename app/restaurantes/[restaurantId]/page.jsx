@@ -38,7 +38,7 @@ export default function RestaurantDetails({ params }) {
 
     const deleteRestaurant = async () => {
         try {
-            const res = await restaurantService.fetchDeleteRestaurant(params.restaurantId);
+            await restaurantService.fetchDeleteRestaurant(params.restaurantId);
             setFormSended(true)
             setError(false)
             setNotFound(false)

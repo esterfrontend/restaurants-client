@@ -40,10 +40,24 @@ export default function AuthContextProvider({ children }) {
     }, [])
 
     const logout = useCallback(function () {
+        navigate('/')
         Cookies.remove("token")
         setUser(null)
-        navigate('/')
     }, [])
+
+    const removeUser = async () => {
+        try {
+            const token = getToken()
+            logout()
+            if (token) {
+                await authService.fetchDeleteRestaurant(token)
+            }
+            navigate("/inicio-sesion")
+            setUser(null)
+        } catch (error) {
+            console.log("Error => ", error)
+        }
+    }
 
     const value = useMemo(() => ({
             login, 
@@ -51,9 +65,10 @@ export default function AuthContextProvider({ children }) {
             getProfile,
             getToken,
             user,
-            isLoading
+            isLoading,
+            removeUser
         }),
-        [login, logout, getProfile, getToken, user, isLoading]
+        [login, logout, getProfile, getToken, user, isLoading, removeUser]
     )
 
     useEffect(() => {
