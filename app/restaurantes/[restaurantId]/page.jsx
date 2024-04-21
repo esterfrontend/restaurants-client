@@ -9,6 +9,7 @@ import restaurantService from '@/app/lib/restaurants.service';
 import { useAuthContext } from '@/app/context/AuthContext';
 import TailorIconsTemplate from '@/app/ui/templates/TailorIcons.template';
 import CreateRestaurantForm from '@/app/ui/components/CreateRestaurantForm/CreateRestaurantForm';
+import Modal from '@/app/ui/components/Modal/Modal';
 
 export default function RestaurantDetails({ params }) {
     const { user } = useAuthContext()
@@ -58,7 +59,6 @@ export default function RestaurantDetails({ params }) {
         try {
             console.log(editRestaurantData)
             const updatedRestaurant = await restaurantService.fetchEditRestaurant(params.restaurantId, editRestaurantData)
-            console.log(updatedRestaurant)
             setShowModal(false)
             setRestaurant(updatedRestaurant)
         } catch (error) {
@@ -124,16 +124,10 @@ export default function RestaurantDetails({ params }) {
         }
         
         { showModal && 
-            <div className='fixed top-0 start-0 bottom-4 w-full h-full flex items-center justify-center p-4 z-50'>
-                <div className='relative w-3/5 h-full bg-white mx-auto px-8 rounded-3xl z-50'>
-                    <span onClick={() => setShowModal(false)} className='absolute top-6 end-6 cursor-pointer'>X</span>
-                    <div className='w-full h-full py-8 px-4 overflow-auto'>
-                        <h2 className='text-2xl font-semibold text-center mb-6'>Edita el restaurante</h2>
-                        <CreateRestaurantForm handleChange={handleChange} handleSubmit={handleSubmitEdit}/>
-                    </div>
-                </div>
-                <span onClick={() => setShowModal(false)} className='absolute w-full h-full bg-black bg-opacity-25 cursor-pointer'></span>
-            </div>
+            <Modal onClose={() => setShowModal(false)}>
+                <h2 className='text-2xl font-semibold text-center mb-6'>Edita el restaurante</h2>
+                <CreateRestaurantForm handleChange={handleChange} handleSubmit={handleSubmitEdit}/>
+            </Modal>
         }
 
     </>)
